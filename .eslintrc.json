@@ -20,6 +20,9 @@
             "suffixes": ["Page", "Component"]
           }
         ],
+        "rules": {
+          "no-unused-expressions": "off"
+        },
         "@angular-eslint/component-selector": [
           "error",
           {

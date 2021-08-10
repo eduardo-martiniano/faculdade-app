@@ -18,6 +18,14 @@ const routes: Routes = [
   {
     path: 'materias',
     loadChildren: () => import('./pages/materias/materias.module').then( m => m.MateriasPageModule)
+  },
+  {
+    path: 'add-materia',
+    loadChildren: () => import('./pages/add-materia/add-materia.module').then( m => m.AddMateriaPageModule)
+  },
+  {
+    path: 'add-horarios/:materia_id',
+    loadChildren: () => import('./pages/add-horarios/add-horarios.module').then( m => m.AddHorariosPageModule)
   }
 ];
 

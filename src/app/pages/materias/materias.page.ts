@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActionSheetController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-materias',
@@ -7,19 +10,53 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MateriasPage implements OnInit {
 
-  materias = [
-    {nome: "PROGRAMAÇÃO FUNCIONAL", horas: 60},
-    {nome: "SEMINÁRIOS EM COMPUTAÇÃO", horas: 30},
-    {nome: "VETORES E GEOMETRIA ANALÍTICA", horas: 60},
-    {nome: "PRÁTICA EM SISTEMAS DIGITAIS", horas: 30},
-    {nome: "FUNDAMENTOS DE SISTEMAS EMBARCADOS", horas: 30},
-    {nome: "INFORMÁTICA, ÉTICA E SOCIEDADE", horas: 60},
-    {nome: "CÁLCULO C", horas: 60},
-];
+  materias = [];
 
-  constructor() { }
+  constructor(private actionSheetController: ActionSheetController,
+              private storageService: StorageService,
+              private router: Router) { }
 
   ngOnInit() {
+    this.router.events.subscribe(() =>
+    this.storageService.obterMaterias().then(materias_salvas => this.materias = materias_salvas));
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opções',
+      cssClass: 'my-custom-class',
+      buttons: [{
+        text: 'Apagar',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          console.log('Delete clicked');
+        }
+      }, {
+        text: 'Configurar horarios',
+        icon: 'share',
+        handler: () => {
+          this.router.navigate(['add-horarios/sdfdfs']);
+        }
+      }, {
+        text: 'Editar',
+        icon: 'caret-forward-circle',
+        handler: () => {
+          console.log('Play clicked');
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
 }

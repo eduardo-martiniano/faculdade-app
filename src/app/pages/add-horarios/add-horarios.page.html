@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Configurar horario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<h2>Vetores</h2>
+<ion-card>
+  <ion-card-content>
+    <form>
+      <ion-item>
+        <ion-label>Dia</ion-label>
+        <ion-select value="brown" okText="Confirmar" cancelText="Cancelar">
+          <ion-select-option *ngFor="let d of dias_da_semana" value="{{d}}">{{d}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Ínicio</ion-label>
+        <ion-datetime displayFormat="HH:mm" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Termino</ion-label>
+        <ion-datetime displayFormat="HH:mm" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+      </ion-item>
+      <ion-button expand="block">Adicionar</ion-button>
+    </form>
+  </ion-card-content>
+</ion-card>
+<ion-card>
+  <ion-header>
+    <h5>Horarios adicionados</h5>
+  </ion-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-label>Segunda / 19:00 - 21:00</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Segunda / 19:00 - 21:00</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Segunda / 19:00 - 21:00</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+</ion-content>
