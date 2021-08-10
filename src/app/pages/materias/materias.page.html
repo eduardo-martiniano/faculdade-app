@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Matérias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-card *ngFor="let m of materias">
+    <ion-card-header>
+      {{m.nome}}
+    </ion-card-header>
+    <ion-card-content>
+      Horas: {{m.horas}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>
