@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StorageService } from './services/storage.service';
 import { ToastService } from './services/toast.service';
+import { HorarioService } from './services/horario.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,8 @@ import { ToastService } from './services/toast.service';
       useClass: IonicRouteStrategy
     },
     StorageService,
-    ToastService
+    ToastService,
+    HorarioService
   ],
   bootstrap: [AppComponent],
 })

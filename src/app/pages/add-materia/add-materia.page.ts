@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Materia } from 'src/app/models/materia.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -19,14 +19,17 @@ export class AddMateriaPage implements OnInit {
 
   ngOnInit() {
     this.formulario = this.fb.group({
-      nome: ['', Validators.required],
-      horas: ['', Validators.required],
+      nome: ['', [Validators.required]],
+      horas: ['', [Validators.required]],
     });
   }
 
   salvar() {
-    let materia = this.formulario.value as Materia;
-    materia.id = new Date().getTime();
+    const materia: Materia = {
+      id: new Date().getTime(),
+      nome: this.formulario.value.nome.trim(),
+      horas: this.formulario.value.horas
+    };
     this.storageService.salvarMateria(materia);
     this.toastService.sucesso('Materia salva com sucesso!');
     this.formulario.reset();

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject } from 'rxjs';
+import { Horario } from '../models/horario.model';
 import { Materia } from '../models/materia.model';
 
 
@@ -19,14 +20,19 @@ export class StorageService{
   async init() {
     const storage = await this.storage.create();
     this._storage = storage;
-    this.obterMaterias().then(async x => {
+    this.getMaterias().then(async x => {
       if(x == null) {
         await this._storage?.set('materias', []);
       }
-    })
+    });
+    this.getHorarios().then(async x => {
+      if(x == null) {
+        await this._storage?.set('horarios', []);
+      }
+    });
   }
 
-  obterMaterias(): Promise<any> {
+  getMaterias(): Promise<any> {
     return new Promise((resolve, reject) => {
       this._storage?.get('materias').then(
       result => resolve(result),
@@ -34,14 +40,34 @@ export class StorageService{
     });
   }
 
+  getMateriaPorId(id: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this._storage?.get('materias').then(
+      result => resolve(result.filter(m => m.id == id)[0]),
+      error => reject(error));
+    });
+  }
+
   salvarMateria(materia: Materia) {
     let materias = [];
-    this.obterMaterias().then(async materias_salvas => {
+    this.getMaterias().then(async materias_salvas => {
       materias = materias_salvas;
       materias.push(materia);
       await this._storage?.set('materias', materias);
       this.materias.next(true);
     });
+  }
+
+  getHorarios(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this._storage?.get('horarios').then(
+      result => resolve(result),
+      error => reject(error));
+    });
+  }
+
+  async salvarListaHorarios(horarios: Horario[]) {
+    await this._storage?.set('horarios', horarios);
   }
 
 }

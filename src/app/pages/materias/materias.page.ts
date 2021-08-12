@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, NavController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -13,15 +13,16 @@ export class MateriasPage implements OnInit {
   materias = [];
 
   constructor(private actionSheetController: ActionSheetController,
+              private navCtrl: NavController,
               private storageService: StorageService,
               private router: Router) { }
 
   ngOnInit() {
     this.router.events.subscribe(() =>
-    this.storageService.obterMaterias().then(materias_salvas => this.materias = materias_salvas));
+    this.storageService.getMaterias().then(materias_salvas => this.materias = materias_salvas));
   }
 
-  async presentActionSheet() {
+  async presentActionSheet(materia) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opções',
       cssClass: 'my-custom-class',
@@ -36,7 +37,7 @@ export class MateriasPage implements OnInit {
         text: 'Configurar horarios',
         icon: 'share',
         handler: () => {
-          this.router.navigate(['add-horarios/sdfdfs']);
+          this.router.navigate(['add-horarios/' + materia.id]);
         }
       }, {
         text: 'Editar',

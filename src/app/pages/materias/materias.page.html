@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let m of materias" (click)="presentActionSheet()">
+  <ion-card *ngFor="let m of materias" (click)="presentActionSheet(m)">
     <ion-card-header>
       {{m.nome}}
     </ion-card-header>
