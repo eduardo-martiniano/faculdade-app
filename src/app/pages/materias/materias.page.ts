@@ -22,6 +22,10 @@ export class MateriasPage implements OnInit {
     this.storageService.getMaterias().then(materias_salvas => this.materias = materias_salvas));
   }
 
+  ionViewWillEnter() {
+    this.storageService.getMaterias().then(materias_salvas => this.materias = materias_salvas);
+  }
+
   async presentActionSheet(materia) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opções',
@@ -35,7 +39,7 @@ export class MateriasPage implements OnInit {
         }
       }, {
         text: 'Configurar horarios',
-        icon: 'share',
+        icon: 'stopwatch',
         handler: () => {
           this.router.navigate(['add-horarios/' + materia.id]);
         }

@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Horários</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <ion-slides #slides>
+      <ion-slide *ngFor="let item of semana">
+        <div class="content">
+          <ion-card>
+            <ion-card-content>
+              <div class="data-div">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <span>{{item.dia}}</span>
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <ion-card *ngFor="let h of item.horarios">
+            <ion-card-content class="card-horario-content">
+              <div class="inicio">
+                <span>{{h.inicio | date: "HH:mm"}}</span>
+              </div>
+              <div>
+                <span>{{h.materia_nome}}</span>
+              </div>
+              <div class="termino">
+                <span>{{h.termino | date: "HH:mm"}}</span>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <!-- <div class="div-arrasta">
+      <span>Arraste para o lado pra ver outros dias</span>
+    </div> -->
+  </div>
+</ion-content>

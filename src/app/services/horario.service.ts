@@ -9,7 +9,7 @@ export class HorarioService {
 
   constructor(private context: StorageService) { }
 
-  getHorarios(): any {
+  getHorarios(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.context.getHorarios().then(
       result => resolve(result),

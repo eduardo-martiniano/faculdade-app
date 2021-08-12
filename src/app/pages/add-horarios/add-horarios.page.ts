@@ -14,7 +14,7 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class AddHorariosPage implements OnInit {
 
-  dias_da_semana = ['SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA'];
+  dias_da_semana = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
   materia: Materia;
   formulario: any;
   horarios = [];

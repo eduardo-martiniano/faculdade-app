@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'add-horarios/:materia_id',
     loadChildren: () => import('./pages/add-horarios/add-horarios.module').then( m => m.AddHorariosPageModule)
+  },
+  {
+    path: 'horarios',
+    loadChildren: () => import('./pages/horarios/horarios.module').then( m => m.HorariosPageModule)
   }
 ];
 
