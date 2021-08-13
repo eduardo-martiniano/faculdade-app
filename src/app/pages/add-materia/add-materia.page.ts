@@ -30,9 +30,15 @@ export class AddMateriaPage implements OnInit {
       nome: this.formulario.value.nome.trim(),
       horas: this.formulario.value.horas
     };
-    this.storageService.salvarMateria(materia);
-    this.toastService.sucesso('Materia salva com sucesso!');
-    this.formulario.reset();
+    this.storageService.getMaterias().then(materias => {
+      if (materias.filter(m => m.nome == materia.nome).length > 0) {
+        this.toastService.erro('Já existe uma materia com esse nome!');
+        return;
+      }
+      this.storageService.salvarMateria(materia);
+      this.toastService.sucesso('Materia salva com sucesso!');
+      this.formulario.reset();
+    });
   }
 
   get formularioValido(): boolean {

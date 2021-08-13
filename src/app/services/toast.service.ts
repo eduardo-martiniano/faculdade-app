@@ -17,4 +17,14 @@ export class ToastService {
     });
     toast.present();
   }
+
+  async erro(mensagem: string) {
+    const toast = await this.toastCtrl.create({
+      message: mensagem,
+      duration: 2000,
+      position: 'top',
+      color: "danger"
+    });
+    toast.present();
+  }
 }

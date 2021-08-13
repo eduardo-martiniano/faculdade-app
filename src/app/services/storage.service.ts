@@ -70,4 +70,8 @@ export class StorageService{
     await this._storage?.set('horarios', horarios);
   }
 
+  async salvarListaMaterias(materias: Materia[]) {
+    await this._storage?.set('materias', materias);
+  }
+
 }
