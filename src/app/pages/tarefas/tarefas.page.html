@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tarefas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-reorder-group (ionItemReorder)="reorderItems($event)" disabled="false">
+    <ion-card *ngFor="let item of tarefas">
+      <ion-card-content [ngClass]="item.status">
+        <ion-reorder>
+          <div>
+            <div class="card-content-header">
+              <span>{{item.materia_nome}}</span>
+              <span *ngIf="item.prioridade == 0"><ion-icon name="arrow-down-outline"></ion-icon></span>
+              <span *ngIf="item.prioridade == 1"><ion-icon name="arrow-forward-outline"></ion-icon></span>
+              <span *ngIf="item.prioridade == 2"><ion-icon name="arrow-up-outline"></ion-icon></span>
+            </div>
+            <div class="card-content-body">
+              <span class="descricao">{{item.descricao}}</span>
+              <div class="div-data-limit">
+                <span class="data-limite"><ion-icon name="calendar-outline"></ion-icon>13/06</span>
+              </div>
+            </div>
+          </div>
+        </ion-reorder>
+      </ion-card-content>
+    </ion-card>
+  </ion-reorder-group>
+</ion-content>

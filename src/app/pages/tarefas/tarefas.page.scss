@@ -1,0 +1,48 @@
+.card-content-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.concluido {
+  background-color: #2dd36f;
+  color: black;
+}
+
+.atrasado {
+  background-color: #eb445a;
+  color: black;
+}
+
+.pendente {
+  background-color: #3880ff;
+  color: white;
+}
+
+.proximo {
+  background-color: #ffc409;
+  color: black;
+}
+
+
+.card-content-body {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  .data-limite {
+    font-size: 16px;
+    ion-icon {
+      vertical-align: text-top;
+      margin-right: 5px;
+    }
+  }
+  .descricao {
+    max-width: 22ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .div-data-limit {
+    display: flex;
+    align-items: flex-end;
+  }
+}
