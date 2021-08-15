@@ -19,7 +19,7 @@
             <div class="card-content-body">
               <span class="descricao">{{item.descricao}}</span>
               <div class="div-data-limit">
-                <span class="data-limite"><ion-icon name="calendar-outline"></ion-icon>13/06</span>
+                <span class="data-limite"><ion-icon name="calendar-outline"></ion-icon>{{item.prazo | date: 'dd/MM HH:mm'}}</span>
               </div>
             </div>
           </div>

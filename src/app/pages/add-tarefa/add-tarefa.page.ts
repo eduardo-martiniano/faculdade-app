@@ -41,14 +41,13 @@ export class AddTarefaPage implements OnInit {
 
   salvar() {
     let tarefa = this.formulario.value as Tarefa;
-    new Date().getMinutes
-    tarefa.prazo = new Date(
-      new Date().getFullYear(),
-      this.formulario.value.data_limite.substring(5,7),
-      this.formulario.value.data_limite.substring(8,10),
-      this.formulario.value.hora.substring(11,13),
-      this.formulario.value.hora.substring(14,16)
-       );
+    const ano = new Date().getFullYear();
+    const mes = this.formulario.value.data_limite.substring(5,7);
+    const dia = this.formulario.value.data_limite.substring(8,10);
+    const hora = this.formulario.value.hora.substring(11,13);
+    const minuto = this.formulario.value.hora.substring(14,16);
+    tarefa.prazo = new Date(`${ano}/${mes}/${dia} ${hora}:${minuto}`);
+
     let _tarefas = [];
     this.storageService.getTarefas().then(tarefas =>
       {
