@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'tarefas',
     loadChildren: () => import('./pages/tarefas/tarefas.module').then( m => m.TarefasPageModule)
+  },
+  {
+    path: 'add-tarefa',
+    loadChildren: () => import('./pages/add-tarefa/add-tarefa.module').then( m => m.AddTarefaPageModule)
   }
 ];
 

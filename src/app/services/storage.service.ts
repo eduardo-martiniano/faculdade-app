@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject } from 'rxjs';
 import { Horario } from '../models/horario.model';
 import { Materia } from '../models/materia.model';
+import { Tarefa } from '../models/tarefa.model';
 
 
 @Injectable({
@@ -25,9 +26,16 @@ export class StorageService{
         await this._storage?.set('materias', []);
       }
     });
+
     this.getHorarios().then(async x => {
       if(x == null) {
         await this._storage?.set('horarios', []);
+      }
+    });
+
+    this.getTarefas().then(async x => {
+      if(x == null) {
+        await this._storage?.set('tarefas', []);
       }
     });
   }
@@ -35,6 +43,14 @@ export class StorageService{
   getMaterias(): Promise<any> {
     return new Promise((resolve, reject) => {
       this._storage?.get('materias').then(
+      result => resolve(result),
+      error => reject(error));
+    });
+  }
+
+  getTarefas(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this._storage?.get('tarefas').then(
       result => resolve(result),
       error => reject(error));
     });
@@ -72,6 +88,10 @@ export class StorageService{
 
   async salvarListaMaterias(materias: Materia[]) {
     await this._storage?.set('materias', materias);
+  }
+
+  async salvarListaTarefas(tarefas: Tarefa[]) {
+    await this._storage?.set('tarefas', tarefas);
   }
 
 }
