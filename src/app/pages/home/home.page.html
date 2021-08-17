@@ -4,6 +4,35 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-content>
+  <ion-card id="resumo-tarefas-titulo">
+    <ion-card-content>
+      <span>
+        Resumo das tarefas
+      </span>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label>Pendentes</ion-label>
+      <ion-badge slot="end">{{numero_tarefas_pendentes}}</ion-badge>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prazo esgotando</ion-label>
+      <ion-badge color="warning" slot="end">{{numero_tarefas_proxima}}</ion-badge>
+    </ion-item>
+    <ion-item>
+      <ion-label>Atrasadas</ion-label>
+      <ion-badge color="danger" slot="end">{{numero_tarefas_atrasadas}}</ion-badge>
+    </ion-item>
+    <ion-item>
+      <ion-label>Concluidas</ion-label>
+      <ion-badge color="success" slot="end">{{numero_tarefas_concluidas}}</ion-badge>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total</ion-label>
+      <ion-badge color="medium" slot="end">{{numero_tarefas}}</ion-badge>
+    </ion-item>
+  </ion-card>
 </ion-content>

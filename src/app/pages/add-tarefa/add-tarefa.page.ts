@@ -21,6 +21,7 @@ export class AddTarefaPage implements OnInit {
   ngOnInit() {
     this.iniciarFormulario();
   }
+  
   ionViewWillEnter() {
     this.storageService.getMaterias().then(materias =>
       {
