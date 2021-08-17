@@ -28,10 +28,10 @@
       </form>
     </ion-card-content>
   </ion-card>
-  <ion-card>
-    <ion-header>
-      <h5>Horarios adicionados</h5>
-    </ion-header>
+  <ion-card id="nenhum-horario-card" *ngIf="horarios.length == 0">
+    <span>Nenhum horário configurado</span>
+  </ion-card>
+  <ion-card *ngIf="horarios.length > 0">
     <ion-card-content>
       <ion-list>
         <ion-item *ngFor="let h of horarios">
