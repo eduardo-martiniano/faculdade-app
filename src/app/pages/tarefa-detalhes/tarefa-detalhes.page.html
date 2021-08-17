@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalhes da tarefa</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" style="font-size: 20px" (click)="dismissModal()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <strong>
+        Descrição completa
+        <ion-icon name="newspaper-outline"></ion-icon>
+      </strong>
+    </ion-card-header>
+    <ion-card-content>
+      {{tarefa?.descricao}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <strong>
+        Máteria
+        <ion-icon name="school-outline"></ion-icon>
+      </strong>
+    </ion-card-header>
+    <ion-card-content>
+      {{tarefa?.materia_nome}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <strong>
+        Criada em
+        <ion-icon name="today-outline"></ion-icon>
+      </strong>
+    </ion-card-header>
+    <ion-card-content>
+      {{tarefa?.data_criacao | date: "dd/MM/yyy HH:mm"}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <strong>
+        Prazo
+        <ion-icon name="hourglass-outline"></ion-icon>
+      </strong>
+    </ion-card-header>
+    <ion-card-content>
+      {{tarefa?.prazo | date: "dd/MM/yyy HH:mm"}}
+    </ion-card-content>
+  </ion-card>
+  <div id="div-button-excluir">
+    <ion-button id="excluir-button" (click)="excluir()" expand="block" color="danger">Excluir tarefa</ion-button>
+  </div>
+</ion-content>

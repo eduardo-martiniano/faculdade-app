@@ -7,21 +7,20 @@
 <ion-content>
   <ion-reorder-group (ionItemReorder)="reorderItems($event)" disabled="false">
     <ion-card *ngFor="let item of tarefas">
-      <ion-card-content [ngClass]="item.status">
+      <ion-card-content>
+        <div class="check-descricao">
+          <div class="checkbox">
+            <ion-checkbox (ionChange)="concluirTarefa(item)" [mode]="'ios'" color="success" [checked]="item.concluido" slot="start"></ion-checkbox>
+          </div>
+          <span *ngIf="!item.concluido"(click)="verDetalhes(item)" class="descricao">{{item.descricao}}</span>
+          <span *ngIf="item.concluido" (click)="verDetalhes(item)" style="text-decoration: line-through;" class="descricao">{{item.descricao}}</span>
+        </div>
         <ion-reorder>
-          <div>
-            <div class="card-content-header">
-              <span>{{item.materia_nome}}</span>
-              <span *ngIf="item.prioridade == 0"><ion-icon name="arrow-down-outline"></ion-icon></span>
-              <span *ngIf="item.prioridade == 1"><ion-icon name="arrow-forward-outline"></ion-icon></span>
-              <span *ngIf="item.prioridade == 2"><ion-icon name="arrow-up-outline"></ion-icon></span>
-            </div>
-            <div class="card-content-body">
-              <span class="descricao">{{item.descricao}}</span>
-              <div class="div-data-limit">
-                <span class="data-limite"><ion-icon name="calendar-outline"></ion-icon>{{item.prazo | date: 'dd/MM HH:mm'}}</span>
-              </div>
-            </div>
+          <div class="div-data-cor">
+            <span class="data-limite">
+              <ion-icon name="calendar-outline"></ion-icon>{{item.prazo | date: 'dd/MM'}}
+            </span>
+            <div [ngClass]="item.status"></div>
           </div>
         </ion-reorder>
       </ion-card-content>

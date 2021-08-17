@@ -19,18 +19,7 @@ export class AddTarefaPage implements OnInit {
               private fb: FormBuilder) { }
 
   ngOnInit() {
-
-    this.formulario = this.fb.group({
-      id: [new Date().getTime()],
-      descricao: ['', Validators.required],
-      prioridade: [0, Validators.required],
-      materia_nome: ['', Validators.required],
-      data_criacao: [new Date()],
-      data_limite: ['', Validators.required],
-      hora: ['', Validators.required],
-      status: ['pendente'],
-      concluida: [false]
-    });
+    this.iniciarFormulario();
   }
   ionViewWillEnter() {
     this.storageService.getMaterias().then(materias =>
@@ -55,12 +44,26 @@ export class AddTarefaPage implements OnInit {
         _tarefas.push(tarefa);
         this.storageService.salvarListaTarefas(_tarefas);
         this.formulario.reset();
+        this.iniciarFormulario();
         this.toastService.sucesso('Tarefa criada com sucesso!');
       });
   }
 
   get formularioValido(): boolean {
     return this.formulario.valid;
+  }
+
+  iniciarFormulario() {
+    this.formulario = this.fb.group({
+      id: [new Date().getTime()],
+      descricao: ['', Validators.required],
+      materia_nome: ['', Validators.required],
+      data_criacao: [new Date()],
+      data_limite: ['', Validators.required],
+      hora: ['', Validators.required],
+      status: ['pendente'],
+      concluido: [false]
+    });
   }
 
 }

@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'add-tarefa',
     loadChildren: () => import('./pages/add-tarefa/add-tarefa.module').then( m => m.AddTarefaPageModule)
+  },
+  {
+    path: 'tarefa-detalhes',
+    loadChildren: () => import('./pages/tarefa-detalhes/tarefa-detalhes.module').then( m => m.TarefaDetalhesPageModule)
   }
 ];
 

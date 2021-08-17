@@ -11,8 +11,10 @@ import { Tarefa } from '../models/tarefa.model';
 })
 export class StorageService{
 
+  numero_tarefas_pendentes = 0;
   private _storage: Storage | null = null;
   public materias: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public tarefas: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private storage: Storage) {
     this.init();
@@ -37,6 +39,9 @@ export class StorageService{
       if(x == null) {
         await this._storage?.set('tarefas', []);
       }
+      this.getTarefas().then(_tarefas => {
+        this.numero_tarefas_pendentes = _tarefas.filter(t => t.concluido == false).length;
+      })
     });
   }
 
@@ -91,6 +96,7 @@ export class StorageService{
   }
 
   async salvarListaTarefas(tarefas: Tarefa[]) {
+    this.numero_tarefas_pendentes = tarefas.filter(t => t.concluido == false).length;
     await this._storage?.set('tarefas', tarefas);
   }
 

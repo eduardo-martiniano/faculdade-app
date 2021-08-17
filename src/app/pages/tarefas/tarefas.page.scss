@@ -1,47 +1,69 @@
-.card-content-header {
+ion-card-content {
   display: flex;
+  padding: 0;
+  padding-left: 10px;
   justify-content: space-between;
-  font-size: 18px;
+  .descricao {
+    margin-left: 10px;
+    font-size: 17px;
+    max-width: 23ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.check-descricao {
+  display: flex;
+  align-items: center;
+
+}
+
+.div-data-cor {
+  display: flex;
+  align-items: center;
+}
+
+.cor-prazo {
+  background-color: blueviolet;
+  height: 60px;
+  width: 6px;
 }
 
 .concluido {
   background-color: #2dd36f;
-  color: black;
+  height: 60px;
+  width: 6px;
 }
 
 .atrasado {
   background-color: #eb445a;
-  color: black;
+  height: 60px;
+  width: 6px;
 }
 
 .pendente {
   background-color: #3880ff;
-  color: white;
+  height: 60px;
+  width: 6px;
+
 }
 
 .proximo {
   background-color: #ffc409;
-  color: black;
+  height: 60px;
+  width: 6px;
 }
 
-.card-content-body {
-  margin-top: 15px;
+.data-limite {
+  margin-right: 10px;
   display: flex;
-  justify-content: space-between;
-  .data-limite {
-    font-size: 14px;
-    ion-icon {
-      vertical-align: text-top;
-      margin-right: 5px;
-    }
+  align-items: center;
+  ion-icon {
+    margin-right: 5px;
   }
-  .descricao {
-    max-width: 22ch;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .div-data-limit {
-    display: flex;
-    align-items: flex-end;
-  }
+}
+
+.checkbox {
+  display: flex;
 }

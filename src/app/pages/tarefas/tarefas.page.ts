@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
+import { ModalController } from '@ionic/angular';
 import { Tarefa } from 'src/app/models/tarefa.model';
 import { StorageService } from 'src/app/services/storage.service';
+import { TarefaDetalhesPage } from '../tarefa-detalhes/tarefa-detalhes.page';
 
 @Component({
   selector: 'app-tarefas',
@@ -10,22 +11,22 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class TarefasPage implements OnInit {
 
-  tarefas: Tarefa[] = [
-    // { id: 1, descricao: "Lista de exercicios", prioridade: 2, materia_nome: "Calculo 1", status: "atrasado"},
-    // { id: 1, descricao: "Pesquisar sobre responsividade ", prioridade: 0, materia_nome: "Programação web", status: "concluido"},
-    // { id: 1, descricao: "Resolver lista fudida", prioridade: 2, materia_nome: "Geometria analitica e Vetorial", status: "pendente"},
-    // { id: 1, descricao: "Seminario", prioridade: 1, materia_nome: "Calculo 1", status: "proximo"}
-  ];
+  tarefas: Tarefa[] = [];
+  tarefas_pendentes = 0;
 
-  constructor(private storageService: StorageService) { }
+  constructor(private storageService: StorageService,
+              private modalController: ModalController) { }
 
   ionViewWillEnter() {
-    this.storageService.getTarefas().then(_tarefas =>
+    this.storageService.tarefas.subscribe(valor =>
       {
-        this.tarefas = _tarefas
-        this.tarefas.map(t => t.status = this.definirStatus(t.concluida, t.prazo));
-        console.log(this.tarefas);
-      });
+        this.storageService.getTarefas().then(_tarefas =>
+        {
+          this.tarefas = _tarefas;
+          this.tarefas.map(t => t.status = this.definirStatus(t.concluido, t.prazo));
+        });
+      }
+    );
   }
 
   ngOnInit() {
@@ -35,7 +36,7 @@ export class TarefasPage implements OnInit {
     const itemMove = this.tarefas.splice(ev.detail.from, 1)[0];
     this.tarefas.splice(ev.detail.to, 0, itemMove);
     ev.detail.complete();
-    console.log(this.tarefas);
+    this.storageService.salvarListaTarefas(this.tarefas);
   }
 
   definirStatus(concluido: boolean, prazo: Date): string {
@@ -53,8 +54,26 @@ export class TarefasPage implements OnInit {
   calcularTempoEmDias(prazo: Date): number {
     var diferenca = prazo.getTime() - new Date().getTime();
     var diferencaDias = (diferenca / 86400000);
-    console.log(diferencaDias);
     return diferencaDias;
+  }
+
+  concluirTarefa(tarefa: Tarefa) {
+    this.tarefas.filter(t => t.id == tarefa.id).map(tr =>
+      {
+        tr.concluido = !tr.concluido;
+        tr.status = this.definirStatus(tr.concluido, tr.prazo);
+      });
+    this.storageService.salvarListaTarefas(this.tarefas);
+  }
+
+  async verDetalhes(tarefa: Tarefa) {
+    const modal = await this.modalController.create({
+      component: TarefaDetalhesPage,
+      cssClass: 'my-custom-class',
+      componentProps: {tarefa}
+    });
+    return await modal.present();
+
   }
 
 }
