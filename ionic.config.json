@@ -1,5 +1,7 @@
 {
   "name": "facul-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
