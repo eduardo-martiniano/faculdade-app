@@ -16,15 +16,15 @@ export class MateriasPage implements OnInit {
   materias = [];
 
   constructor(private actionSheetController: ActionSheetController,
-              private storageService: StorageService,
-              private toastService: ToastService,
-              private alertController: AlertController,
-              private horarioService: HorarioService,
-              private router: Router) { }
+    private storageService: StorageService,
+    private toastService: ToastService,
+    private alertController: AlertController,
+    private horarioService: HorarioService,
+    private router: Router) { }
 
   ngOnInit() {
     this.router.events.subscribe(() =>
-    this.storageService.getMaterias().then(materias_salvas => this.materias = materias_salvas));
+      this.storageService.getMaterias().then(materias_salvas => this.materias = materias_salvas));
   }
 
   ionViewWillEnter() {
@@ -41,7 +41,6 @@ export class MateriasPage implements OnInit {
         icon: 'trash',
         handler: () => {
           this.abrirAlertarDeletar(materia);
-          console.log('Delete clicked');
         }
       }, {
         text: 'Configurar horarios',
@@ -62,7 +61,7 @@ export class MateriasPage implements OnInit {
 
   async abrirAlertarDeletar(materia: Materia) {
     const alert = await this.alertController.create({
-      header: 'Deletar máteria?',
+      header: 'Deletar matéria?',
       message: 'Essa ação não poderá ser desfeita!',
       buttons: [
         {
@@ -70,11 +69,10 @@ export class MateriasPage implements OnInit {
         },
         {
           text: 'Confirmar',
-          handler: () => {
+          handler: async () => {
             this.apagarHorariosDaMateria(materia);
-            this.apagarMateria(materia);
+            await this.apagarMateria(materia);
             this.toastService.sucesso('Matéria e horários excluidos com sucesso!');
-            this.storageService.getMaterias().then(materias_salvas => this.materias = materias_salvas);
           }
         }
       ]
@@ -83,14 +81,19 @@ export class MateriasPage implements OnInit {
     await alert.present();
   }
 
-  apagarHorariosDaMateria(materia: Materia) {
+  async apagarHorariosDaMateria(materia: Materia) {
     this.horarioService.getHorarios().then(
-      horarios => this.storageService.salvarListaHorarios(horarios.filter(h => h.materia_nome != materia.nome)));
+      async horarios => await this.storageService.salvarListaHorarios(horarios.filter(h => h.materia_nome != materia.nome)));
   }
 
   apagarMateria(materia: Materia) {
     this.storageService.getMaterias().then(
-      materias => this.storageService.salvarListaMaterias(materias.filter(m => m.nome != materia.nome)));
+      async materias => {
+        await this.storageService.salvarListaMaterias(materias.filter(m => m.nome != materia.nome));
+        this.storageService.getMaterias().then(materias_salvas => {
+          this.materias = materias_salvas
+        });
+      });
   }
 
 }
