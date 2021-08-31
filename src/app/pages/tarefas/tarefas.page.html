@@ -5,15 +5,20 @@
 </ion-header>
 
 <ion-content>
+  <div id="div-sem-tarefas" *ngIf="tarefas.length < 1">
+    <span><strong>Sem tarefas para exibir</strong></span>
+  </div>
   <ion-reorder-group (ionItemReorder)="reorderItems($event)" disabled="false">
     <ion-card *ngFor="let item of tarefas">
       <ion-card-content>
         <div class="check-descricao">
           <div class="checkbox">
-            <ion-checkbox (ionChange)="concluirTarefa(item)" [mode]="'ios'" color="success" [checked]="item.concluido" slot="start"></ion-checkbox>
+            <ion-checkbox (ionChange)="concluirTarefa(item)" [mode]="'ios'" color="success" [checked]="item.concluido"
+              slot="start"></ion-checkbox>
           </div>
-          <span *ngIf="!item.concluido"(click)="verDetalhes(item)" class="descricao">{{item.descricao}}</span>
-          <span *ngIf="item.concluido" (click)="verDetalhes(item)" style="text-decoration: line-through;" class="descricao">{{item.descricao}}</span>
+          <span *ngIf="!item.concluido" (click)="verDetalhes(item)" class="descricao">{{item.descricao}}</span>
+          <span *ngIf="item.concluido" (click)="verDetalhes(item)" style="text-decoration: line-through;"
+            class="descricao">{{item.descricao}}</span>
         </div>
         <ion-reorder>
           <div class="div-data-cor">

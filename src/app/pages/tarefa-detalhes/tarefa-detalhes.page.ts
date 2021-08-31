@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import { Tarefa } from 'src/app/models/tarefa.model';
 import { StorageService } from 'src/app/services/storage.service';
@@ -14,6 +15,7 @@ export class TarefaDetalhesPage implements OnInit {
   @Input() tarefa: Tarefa;
 
   constructor(private modalController: ModalController,
+              private router: Router,
               private toastService: ToastService,
               private storageService: StorageService) { }
 
@@ -32,6 +34,11 @@ export class TarefaDetalhesPage implements OnInit {
         this.toastService.sucesso('Tarefa excluida com sucesso!');
         this.modalController.dismiss();
       });
+  }
+
+  editar() {
+    this.modalController.dismiss();
+    this.router.navigate(['editar-tarefa/'+this.tarefa.id]);
   }
 
 }

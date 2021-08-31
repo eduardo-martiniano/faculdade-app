@@ -42,6 +42,10 @@ const routes: Routes = [
   {
     path: 'tarefa-detalhes',
     loadChildren: () => import('./pages/tarefa-detalhes/tarefa-detalhes.module').then( m => m.TarefaDetalhesPageModule)
+  },
+  {
+    path: 'editar-tarefa/:id',
+    loadChildren: () => import('./pages/editar-tarefa/editar-tarefa.module').then( m => m.EditarTarefaPageModule)
   }
 ];
 

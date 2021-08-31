@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar tarefa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="formulario">
+    <ion-item lines="full">
+      <ion-label position="floating">Descrição</ion-label>
+      <ion-input type="text" formControlName="descricao"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Matéria</ion-label>
+      <ion-select okText="Ok"
+                  interface="action-sheet"
+                  formControlName="materia_nome"
+                  cancelText="Cancelar">
+        <ion-select-option *ngFor="let m of materias" [value]="m.nome">{{m.nome}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Data Limite</ion-label>
+      <ion-datetime
+        doneText="Ok"
+        cancelText="Cancelar"
+        [monthShortNames]='["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]'
+        display-timezone="utc"
+        displayFormat="DD de MMM" formControlName="data_limite"></ion-datetime>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Hora</ion-label>
+      <ion-datetime
+        doneText="Ok"
+        cancelText="Cancelar"
+        displayFormat="HH:mm" formControlName="hora"></ion-datetime>
+    </ion-item>
+    <ion-row id="row-button-salvar">
+      <ion-col>
+        <ion-button color="success" [disabled]="!formularioValido" (click)="salvar()" expand="block">Salvar</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

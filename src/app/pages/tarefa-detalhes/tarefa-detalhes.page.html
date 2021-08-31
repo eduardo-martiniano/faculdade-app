@@ -54,7 +54,8 @@
       {{tarefa?.prazo | date: "dd/MM/yyy HH:mm"}}
     </ion-card-content>
   </ion-card>
-  <div id="div-button-excluir">
-    <ion-button id="excluir-button" (click)="excluir()" expand="block" color="danger">Excluir tarefa</ion-button>
+  <div id="div-buttons">
+    <ion-button id="editar-button" (click)="editar()" expand="block" color="secondary">Editar</ion-button>
+    <ion-button id="excluir-button" (click)="excluir()" expand="block" color="danger">Excluir</ion-button>
   </div>
 </ion-content>
