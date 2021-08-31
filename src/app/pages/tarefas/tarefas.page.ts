@@ -1,5 +1,7 @@
+import { registerLocaleData } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Tarefa } from 'src/app/models/tarefa.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { TarefaDetalhesPage } from '../tarefa-detalhes/tarefa-detalhes.page';
@@ -13,20 +15,22 @@ export class TarefasPage implements OnInit {
 
   tarefas: Tarefa[] = [];
   tarefas_pendentes = 0;
+  materias = [];
 
   constructor(private storageService: StorageService,
-              private modalController: ModalController) { }
+    private router: Router,
+    private alertController: AlertController,
+    private modalController: ModalController) { }
 
   ionViewWillEnter() {
-    this.storageService.tarefas.subscribe(valor =>
-      {
-        this.storageService.getTarefas().then(_tarefas =>
-        {
-          this.tarefas = _tarefas;
-          this.tarefas.map(t => t.status = this.definirStatus(t.concluido, t.prazo));
-        });
-      }
-    );
+    this.storageService.tarefas.subscribe(valor => {
+      this.storageService.getTarefas().then(_tarefas => {
+        this.tarefas = _tarefas;
+        this.tarefas.map(t => t.status = this.definirStatus(t.concluido, t.prazo));
+      });
+    });
+
+    this.storageService.getMaterias().then(_materias => this.materias = _materias);
   }
 
   ngOnInit() {
@@ -58,19 +62,43 @@ export class TarefasPage implements OnInit {
   }
 
   concluirTarefa(tarefa: Tarefa) {
-    this.tarefas.filter(t => t.id == tarefa.id).map(tr =>
-      {
-        tr.concluido = !tr.concluido;
-        tr.status = this.definirStatus(tr.concluido, tr.prazo);
-      });
+    this.tarefas.filter(t => t.id == tarefa.id).map(tr => {
+      tr.concluido = !tr.concluido;
+      tr.status = this.definirStatus(tr.concluido, tr.prazo);
+    });
     this.storageService.salvarListaTarefas(this.tarefas);
+  }
+
+  async addTarefa() {
+    if (this.materias.length > 0) {
+      this.router.navigate(['add-tarefa']);
+    }
+    else {
+      const alert = await this.alertController.create({
+        header: 'Você ainda não possui matérias!',
+        message: 'Cadastre ao menos uma matéria para vincular tarefas a ela.',
+        buttons: [
+          {
+            text: 'Cancelar'
+          },
+          {
+            text: 'Confirmar',
+            handler: async () => {
+              this.router.navigate(['add-materia']);
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }
+
   }
 
   async verDetalhes(tarefa: Tarefa) {
     const modal = await this.modalController.create({
       component: TarefaDetalhesPage,
       cssClass: 'my-custom-class',
-      componentProps: {tarefa}
+      componentProps: { tarefa }
     });
     return await modal.present();
 

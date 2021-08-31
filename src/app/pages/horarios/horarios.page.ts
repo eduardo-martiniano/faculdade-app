@@ -11,7 +11,6 @@ import { IonSlides } from '@ionic/angular';
 export class HorariosPage implements OnInit {
 
   @ViewChild('slides', {static: true}) slides: IonSlides;
-  horarios = [];
   data = new Date();
 
   semana = [
