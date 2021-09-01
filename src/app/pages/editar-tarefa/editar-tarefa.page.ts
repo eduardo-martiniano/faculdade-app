@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Tarefa } from 'src/app/models/tarefa.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-editar-tarefa',
@@ -18,6 +19,7 @@ export class EditarTarefaPage implements OnInit {
   constructor(private storageService: StorageService,
               private routeActivated: ActivatedRoute,
               private router: Router,
+              private _location: Location,
               private toastService: ToastService,
               private fb: FormBuilder) { }
 
@@ -82,6 +84,10 @@ export class EditarTarefaPage implements OnInit {
       status: ['pendente'],
       concluido: [false]
     });
+  }
+
+  voltar() {
+    this._location.back();
   }
 
 }

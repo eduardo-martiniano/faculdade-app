@@ -38,6 +38,7 @@
     <ion-row id="row-button-salvar">
       <ion-col>
         <ion-button color="success" [disabled]="!formularioValido" (click)="salvar()" expand="block">Salvar</ion-button>
+        <ion-button id="cancelar-button" color="secondary" (click)="voltar()" expand="block">Cancelar</ion-button>
       </ion-col>
     </ion-row>
   </form>
